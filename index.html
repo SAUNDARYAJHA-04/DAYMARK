@@ -2,74 +2,371 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="DAYMARK helps you plan your day and track your goals.">
-  <title>DAYMARK — Your Daily Workflow</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#171916">
+
+    <title>DAYMARK — Daily Focus</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
+
 <body>
-  <header class="topbar">
-    <a class="brand" href="#">DAYMARK<span>.</span></a>
-    <span class="tagline">Make every day count.</span>
-  </header>
+    <div class="app-container">
 
-  <main class="dashboard">
-    <section class="welcome">
-      <p class="eyebrow">YOUR PERSONAL WORKSPACE</p>
-      <h1>Make today <span>meaningful.</span></h1>
-      <p>Turn your goals into clear, manageable actions.</p>
-    </section>
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a href="#" class="logo">
+                <span class="logo-mark">D</span>
+                <span>DAYMARK</span>
+            </a>
 
-    <section class="summary" aria-label="Daily progress">
-      <div class="summary-card">
-        <span>Total tasks</span>
-        <strong id="total-tasks">0</strong>
-      </div>
-      <div class="summary-card">
-        <span>Completed</span>
-        <strong id="completed-tasks">0</strong>
-      </div>
-      <div class="summary-card">
-        <span>Progress</span>
-        <strong id="progress-text">0%</strong>
-      </div>
-    </section>
+            <div class="sidebar-section">
+                <p class="sidebar-label">WORKSPACE</p>
 
-    <section class="task-panel">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">DAILY ACTIONS</p>
-          <h2>Your task list</h2>
-        </div>
-      </div>
+                <a href="#dashboard" class="nav-link active">
+                    <span class="nav-icon">◫</span>
+                    Dashboard
+                </a>
 
-      <form id="task-form">
-        <label for="task-input">What do you want to accomplish?</label>
-        <div class="task-entry">
-          <input
-            id="task-input"
-            type="text"
-            placeholder="e.g. Complete my JavaScript lesson"
-            maxlength="160"
-            required
-          >
-          <button type="submit">Add task</button>
-        </div>
-      </form>
+                <a href="#tasks" class="nav-link">
+                    <span class="nav-icon">✓</span>
+                    My Tasks
+                </a>
 
-      <div class="progress-track" aria-label="Task completion progress">
-        <div id="progress-bar" class="progress-fill"></div>
-      </div>
+                <a href="#focus" class="nav-link">
+                    <span class="nav-icon">◷</span>
+                    Focus Room
+                </a>
 
-      <p id="empty-message">Your day starts with one small action.</p>
-      <ul id="task-list" aria-label="Tasks"></ul>
-    </section>
+                <a href="#history" class="nav-link">
+                    <span class="nav-icon">▥</span>
+                    Daily History
+                </a>
+            </div>
 
-    <footer>
-      DAYMARK · Plan with purpose. Progress with consistency.
-    </footer>
-  </main>
+            <div class="sidebar-bottom">
+                <div class="sidebar-status">
+                    <span class="status-dot"></span>
+                    <span>Local storage enabled</span>
+                </div>
+
+                <p class="sidebar-caption">
+                    Your day. Your direction.
+                </p>
+            </div>
+        </aside>
+
+        <!-- Main Dashboard -->
+        <main class="main-content" id="dashboard">
+
+            <!-- Header -->
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">YOUR PERSONAL WORKSPACE</p>
+                    <h1>Daily Focus<span class="accent-dot">.</span></h1>
+                    <p class="header-subtitle">
+                        Make today count, one task at a time.
+                    </p>
+                </div>
+
+                <div class="date-clock">
+                    <p id="current-date">Loading date...</p>
+                    <h2 id="live-clock">00:00:00</h2>
+                    <span class="clock-label">LOCAL TIME</span>
+                </div>
+            </header>
+
+            <!-- Anti-Procrastination Reminder -->
+            <section class="reminder-banner">
+                <div class="reminder-content">
+                    <span class="reminder-tag">A QUICK REMINDER</span>
+
+                    <h2>Stop procrastinating.</h2>
+
+                    <p>
+                        Get up. Start with five minutes.
+                        You do not need to finish everything right now.
+                    </p>
+                </div>
+
+                <div class="reminder-actions">
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        id="start-five-minutes"
+                    >
+                        Start 5 minutes →
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn btn-quiet"
+                        id="dismiss-reminder"
+                    >
+                        I'm up
+                    </button>
+                </div>
+            </section>
+
+            <!-- Statistics -->
+            <section class="stats-grid" aria-label="Task statistics">
+
+                <article class="stat-card">
+                    <div class="stat-top">
+                        <span class="stat-label">TOTAL TASKS</span>
+                        <span class="stat-icon">▤</span>
+                    </div>
+
+                    <p class="stat-number" id="total-tasks">0</p>
+
+                    <p class="stat-description">
+                        Tasks planned for today
+                    </p>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-top">
+                        <span class="stat-label">COMPLETED</span>
+                        <span class="stat-icon">✓</span>
+                    </div>
+
+                    <p class="stat-number" id="completed-tasks">0</p>
+
+                    <p class="stat-description">
+                        Tasks you have finished
+                    </p>
+                </article>
+
+                <article class="stat-card progress-stat">
+                    <div class="stat-top">
+                        <span class="stat-label">DAILY PROGRESS</span>
+                        <span class="stat-icon">↗</span>
+                    </div>
+
+                    <p class="stat-number">
+                        <span id="progress-percentage">0</span>%
+                    </p>
+
+                    <div
+                        class="progress-track"
+                        role="progressbar"
+                        aria-label="Daily task completion"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        aria-valuenow="0"
+                        id="progress-track"
+                    >
+                        <div
+                            class="progress-fill"
+                            id="progress-fill"
+                        ></div>
+                    </div>
+
+                    <p class="stat-description">
+                        Keep moving forward
+                    </p>
+                </article>
+            </section>
+
+            <!-- Main Workspace Grid -->
+            <div class="workspace-grid">
+
+                <!-- Task Manager -->
+                <section class="panel tasks-panel" id="tasks">
+
+                    <div class="panel-heading">
+                        <div>
+                            <p class="eyebrow">PLAN YOUR DAY</p>
+                            <h2>Today's tasks</h2>
+                        </div>
+
+                        <span class="panel-badge" id="task-count-badge">
+                            0 tasks
+                        </span>
+                    </div>
+
+                    <form id="task-form" class="task-form">
+                        <label for="task-input">TASK DESCRIPTION</label>
+
+                        <input
+                            type="text"
+                            id="task-input"
+                            name="task"
+                            placeholder="What needs to get done?"
+                            maxlength="160"
+                            required
+                        >
+
+                        <div class="form-bottom">
+                            <div class="priority-field">
+                                <label for="task-priority">PRIORITY</label>
+
+                                <select
+                                    id="task-priority"
+                                    name="priority"
+                                >
+                                    <option value="high">High</option>
+                                    <option value="medium" selected>
+                                        Medium
+                                    </option>
+                                    <option value="low">Low</option>
+                                </select>
+                            </div>
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary add-task-btn"
+                            >
+                                + Add task
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="task-list-heading">
+                        <h3>Your list</h3>
+                        <span>Prioritise. Execute. Repeat.</span>
+                    </div>
+
+                    <div id="task-list" class="task-list">
+                        <!-- Tasks are rendered by script.js -->
+                    </div>
+
+                    <p id="empty-state" class="empty-state">
+                        <span class="empty-icon">✳</span>
+                        <strong>Nothing on your list yet.</strong>
+                        Add your first task and get started.
+                    </p>
+
+                </section>
+
+                <!-- Focus Timer -->
+                <section class="panel focus-panel" id="focus">
+
+                    <div class="panel-heading">
+                        <div>
+                            <p class="eyebrow">WORK WITH INTENTION</p>
+                            <h2>Focus room</h2>
+                        </div>
+
+                        <span class="focus-status">
+                            <span class="status-dot"></span>
+                            READY
+                        </span>
+                    </div>
+
+                    <p class="focus-description">
+                        One task. One session. No distractions.
+                    </p>
+
+                    <div class="timer-container">
+                        <div class="timer-ring">
+                            <div class="timer-inner">
+                                <span
+                                    id="timer-display"
+                                    class="timer-display"
+                                >
+                                    25:00
+                                </span>
+
+                                <span
+                                    id="timer-mode"
+                                    class="timer-mode"
+                                >
+                                    FOCUS SESSION
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timer-presets">
+                        <button
+                            type="button"
+                            class="timer-preset active"
+                            id="focus-preset"
+                        >
+                            25 min focus
+                        </button>
+
+                        <button
+                            type="button"
+                            class="timer-preset"
+                            id="break-preset"
+                        >
+                            5 min reset
+                        </button>
+                    </div>
+
+                    <div class="timer-actions">
+                        <button
+                            type="button"
+                            class="btn btn-primary timer-start-btn"
+                            id="timer-start"
+                        >
+                            Start focus
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            id="timer-reset"
+                        >
+                            Reset
+                        </button>
+                    </div>
+
+                    <div class="focus-footer">
+                        <span>FOCUS SESSIONS COMPLETED</span>
+                        <strong id="focus-sessions">0</strong>
+                    </div>
+
+                </section>
+            </div>
+
+            <!-- Daily History -->
+            <section class="panel history-panel" id="history">
+
+                <div class="panel-heading">
+                    <div>
+                        <p class="eyebrow">CONSISTENCY OVER PERFECTION</p>
+                        <h2>Daily history</h2>
+                    </div>
+
+                    <span class="panel-badge">LAST 7 DAYS</span>
+                </div>
+
+                <p class="history-description">
+                    Track completed tasks and focus sessions across the week.
+                </p>
+
+                <div
+                    id="history-chart"
+                    class="history-chart"
+                    aria-label="Seven-day productivity history"
+                >
+                    <!-- History is rendered by script.js -->
+                </div>
+
+                <p id="history-empty" class="history-empty">
+                    Your history will appear here as you complete tasks
+                    and focus sessions.
+                </p>
+
+            </section>
+
+            <!-- Footer -->
+            <footer class="app-footer">
+                <a href="#dashboard" class="footer-brand">DAYMARK</a>
+
+                <p>
+                    Built for consistency, not perfection.
+                </p>
+
+                <span id="footer-year"></span>
+            </footer>
+
+        </main>
+    </div>
 </body>
 </html>
