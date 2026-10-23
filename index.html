@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DAYMARK helps you plan your day and track your goals.">
+  <title>DAYMARK — Your Daily Workflow</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#">DAYMARK<span>.</span></a>
+    <span class="tagline">Make every day count.</span>
+  </header>
+
+  <main class="dashboard">
+    <section class="welcome">
+      <p class="eyebrow">YOUR PERSONAL WORKSPACE</p>
+      <h1>Make today <span>meaningful.</span></h1>
+      <p>Turn your goals into clear, manageable actions.</p>
+    </section>
+
+    <section class="summary" aria-label="Daily progress">
+      <div class="summary-card">
+        <span>Total tasks</span>
+        <strong id="total-tasks">0</strong>
+      </div>
+      <div class="summary-card">
+        <span>Completed</span>
+        <strong id="completed-tasks">0</strong>
+      </div>
+      <div class="summary-card">
+        <span>Progress</span>
+        <strong id="progress-text">0%</strong>
+      </div>
+    </section>
+
+    <section class="task-panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">DAILY ACTIONS</p>
+          <h2>Your task list</h2>
+        </div>
+      </div>
+
+      <form id="task-form">
+        <label for="task-input">What do you want to accomplish?</label>
+        <div class="task-entry">
+          <input
+            id="task-input"
+            type="text"
+            placeholder="e.g. Complete my JavaScript lesson"
+            maxlength="160"
+            required
+          >
+          <button type="submit">Add task</button>
+        </div>
+      </form>
+
+      <div class="progress-track" aria-label="Task completion progress">
+        <div id="progress-bar" class="progress-fill"></div>
+      </div>
+
+      <p id="empty-message">Your day starts with one small action.</p>
+      <ul id="task-list" aria-label="Tasks"></ul>
+    </section>
+
+    <footer>
+      DAYMARK · Plan with purpose. Progress with consistency.
+    </footer>
+  </main>
+</body>
+</html>
